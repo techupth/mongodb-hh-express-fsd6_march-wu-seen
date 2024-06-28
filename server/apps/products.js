@@ -56,6 +56,14 @@ productRouter.put("/:id", async (req, res) => {
   });
 });
 
-productRouter.delete("/:id", (req, res) => {});
+productRouter.delete("/:id", async (req, res) => {
+  const productId = req.params.id;
+  const objectId = new ObjectId(productId);
+  const result = await collection.deleteOne({ _id: objectId });
+  return res.json({
+     message: "Product has been deleted successfully",
+     data: result
+  });
+});
 
 export default productRouter;
